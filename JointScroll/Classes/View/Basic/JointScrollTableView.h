@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, JSTable){
 /// @param frame Table的尺寸
 /// @param style Table的样式
 /// @param type Table的类型 JSTableParent:父 JSTableChild：子
--(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style JSTableType:(JSTable)type;
+//-(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style JSTableType:(JSTable)type;
 
 @property(nonatomic,assign)JSTable jsTableType;
 

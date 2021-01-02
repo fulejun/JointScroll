@@ -142,7 +142,7 @@
 #pragma mark - LazyLoads
 -(JointScrollTableView*)parentTableView {
     if (_parentTableView == nil) {
-        _parentTableView = [[JointScrollTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain JSTableType:JSTableParent];
+        _parentTableView = [[JointScrollTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _parentTableView.dataSource = self;
         _parentTableView.delegate = self;
         _parentTableView.showsVerticalScrollIndicator = NO;

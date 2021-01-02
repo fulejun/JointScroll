@@ -6,14 +6,13 @@
 //
 
 #import "SecondViewController.h"
-#import "Macros.h"
-#import "UIView+Additions.h"
 #import <ReactiveObjC/ReactiveObjC.h>
-#import "LJScrollableViewController.h"
-#import "SubViewController.h"
 #import "JointScrollTableView.h"
+#import "UIView+Additions.h"
+#import "Macros.h"
 
 @interface SecondViewController ()<UITableViewDelegate,UITableViewDataSource>
+
 @property(nonatomic,strong)UIScrollView *mainScrollView;
 @property(nonatomic,strong)JointScrollTableView *parentTableView;
 @property(nonatomic,strong)UIView *header;
@@ -22,6 +21,7 @@
 @property(nonatomic,assign)BOOL canParentScroll;
 @property(nonatomic,assign)BOOL canChildScroll;
 @property(nonatomic,assign)CGPoint triggerPoint;
+@property(nonatomic,assign)int statusbarFlag;
 
 @end
 
@@ -30,19 +30,54 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor darkGrayColor];
-    
+    [self buildUI];
+    [self customNavBars];
+}
+
+-(void)buildUI {
     [self.view addSubview:self.parentTableView];
     [self.parentTableView setTableHeaderView:self.header];
     [self.parentTableView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-TabBarHeight)];
     
     _canParentScroll = YES;
     _canChildScroll = NO;
+    
+    self.statusbarFlag = 1;
     self.triggerPoint = CGPointMake(0, self.header.height-NavBarHeight);
 }
 
+#pragma mark - NavBars
+-(void)customNavBars {
+    //设置标题
+    [self.navigationController.navigationBar setTitleTextAttributes:@{
+        NSForegroundColorAttributeName : [UIColor darkGrayColor]
+    }];
+
+    [RACObserve(self.parentTableView, contentOffset) subscribeNext:^(id  _Nullable x) {
+        CGPoint point = [(NSValue*)x CGPointValue];
+        if (point.y >= self.triggerPoint.y) {
+            self.navigationController.navigationBar.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.navigationController.navigationBar.alpha = 1;
+                self.statusbarFlag = 0;
+                [self setNeedsStatusBarAppearanceUpdate];
+            }];
+        }else {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.navigationController.navigationBar.alpha = 0;
+                self.statusbarFlag = 1;
+                [self setNeedsStatusBarAppearanceUpdate];
+            }];
+        }
+    }];
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    if (self.statusbarFlag == 1) {
+        return UIStatusBarStyleLightContent;
+    } else {
+        return UIStatusBarStyleDefault;
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -132,9 +167,10 @@
 }
 
 #pragma mark - LazyLoads
--(UITableView*)parentTableView {
+
+-(JointScrollTableView*)parentTableView {
     if (_parentTableView == nil) {
-        _parentTableView = [[JointScrollTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain JSTableType:JSTableParent];
+        _parentTableView = [[JointScrollTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _parentTableView.dataSource = self;
         _parentTableView.delegate = self;
         _parentTableView.showsVerticalScrollIndicator = NO;
