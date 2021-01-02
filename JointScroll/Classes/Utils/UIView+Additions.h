@@ -2,8 +2,8 @@
 //  UIView+Additions.h
 //  ReLearnOC001
 //
-//  Created by 乐军付 on 2019/3/21.
-//  Copyright © 2019 乐军付. All rights reserved.
+//  Created by lj on 2019/3/21.
+//  Copyright © 2019 lj. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -2,8 +2,8 @@
 //  LJMacro.h
 //  QTQ
 //
-//  Created by 乐军付 on 2016/12/7.
-//  Copyright © 2020 乐军付. All rights reserved.
+//  Created by lj on 2016/12/7.
+//  Copyright © 2020 lj. All rights reserved.
 //
 
 #ifndef LJMacro_h

@@ -2,7 +2,7 @@
 //  RootViewController.m
 //  JointScroll
 //
-//  Created by 乐军付 on 2020/12/20.
+//  Created by lj on 2020/12/20.
 //
 
 #import "RootViewController.h"

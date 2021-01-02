@@ -2,8 +2,8 @@
 //  LJScrollableViewController.h
 //  FishingDay
 //
-//  Created by 乐军付 on 2020/12/19.
-//  Copyright © 2020 乐军付. All rights reserved.
+//  Created by lj on 2020/12/19.
+//  Copyright © 2020 lj. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

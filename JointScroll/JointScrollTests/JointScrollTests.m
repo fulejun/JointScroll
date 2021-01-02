@@ -2,7 +2,7 @@
 //  JointScrollTests.m
 //  JointScrollTests
 //
-//  Created by 乐军付 on 2020/12/20.
+//  Created by lj on 2020/12/20.
 //
 
 #import <XCTest/XCTest.h>
